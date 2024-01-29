@@ -1,4 +1,4 @@
-# Node.js API Status Checker
+# Node.js Database Connection Status Checker
 
 This Node.js application consists of a server and a simple HTML/JavaScript client. The server checks the status of a PostgreSQL database, and the client displays the status along with downtime information.
 
