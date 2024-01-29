@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Status Checker</title>
+</head>
+<body>
+
+<div id="statusContainer" style="width: 200px; height: 80px; text-align: center; line-height: 80px; border: 1px solid #ccc;">Checking...</div>
+
+<script>
+  const statusContainer = document.getElementById('statusContainer');
+  let downtimeSeconds = 0;
+
+  async function checkApiStatus() {
+    try {
+      const response = await fetch('http://localhost:3000'); // Replace with your API endpoint
+      const statusCode = response.status;
+
+      if (statusCode === 200) {
+        statusContainer.style.backgroundColor = 'green';
+        statusContainer.textContent = 'Success';
+        statusContainer.innerHTML += `<br>Downtime: ${downtimeSeconds} seconds`;
+      } else {
+        statusContainer.style.backgroundColor = 'red';
+        statusContainer.textContent = `Error ${statusCode}`;
+        downtimeSeconds++;
+        statusContainer.innerHTML += `<br>Downtime: ${downtimeSeconds} seconds`;
+      }
+    } catch (error) {
+      statusContainer.style.backgroundColor = 'red';
+      statusContainer.textContent = 'Error';
+      downtimeSeconds++;
+      statusContainer.innerHTML += `<br>Downtime: ${downtimeSeconds} seconds`;
+    }
+  }
+
+  // Call the function every second
+  setInterval(checkApiStatus, 1000);
+</script>
+
+</body>
+</html>
